@@ -1,33 +1,48 @@
-import { users as data } from "../data/users";
+import { users as data } from "../data/users.js";
 
 //private
 let users = [...data];
 
 export function getAllUsers() {
-  // get all users
   return [...users];
 }
 
-function getUserById(id) {
-  //get single user by id
+export function getUserById(id) {
   return users.find((user) => user.id === id);
 }
 
 export function updateUser(id, userInfo) {
-  //update user (userInfo is an object which can optionally contain properties of a user)
   users = users.map((user) => {
     if (user.id === id) {
+      console.log(user.id===id)
+      console.log(user.id===1)
+      
       return {
         ...user,
         ...userInfo,
-      };
+        
+      }
     }
 
-    return user;
+    return user
   });
+  return users
 }
 
-function addUser(userInfo) {
-  // add user (userInfo is an object which can optionally contain properties of a user)
-  // use generateId function and pass users array as the argument to generate a unique id.
+export function addUser(userInfo) {
+  const newUserId = generateId(users);
+
+  const newUser = {
+    id: newUserId,
+    ...userInfo
+  };
+
+  users.push(newUser);
+
+  return newUser;
+}
+
+function generateId(usersArray) {
+  const maxId = usersArray.reduce((max, user) => (user.id > max ? user.id : max), 0);
+  return maxId + 1;
 }
