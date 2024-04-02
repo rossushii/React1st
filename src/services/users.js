@@ -30,7 +30,7 @@ export function updateUser(id, userInfo) {
 }
 
 export function addUser(userInfo) {
-  const newUserId = generateId(users);
+  const newUserId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
 
   const newUser = {
     id: newUserId,
@@ -40,9 +40,4 @@ export function addUser(userInfo) {
   users.push(newUser);
 
   return newUser;
-}
-
-function generateId(usersArray) {
-  const maxId = usersArray.reduce((max, user) => (user.id > max ? user.id : max), 0);
-  return maxId + 1;
 }

@@ -27,12 +27,10 @@ function deleteCommentById(id) {
 }
 
 function addComment(comment) {
-  const newComment = { id: generateId(comments), ...comment };
+  let nextId = data.length > 0 ? Math.max(...data.map(comment => comment.id)) + 1 : 1
+  const newComment = { id: nextId++, ...comment };
   comments.push(newComment);
   return newComment;
-}
-function generateId(data) {
-  return data.length ? Math.max(...data.map(item => item.id)) + 1 : 1;
 }
 
 export {

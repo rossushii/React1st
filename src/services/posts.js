@@ -16,7 +16,8 @@ function getPostById(id) {
 }
 
 function addPost(post) {
-  const newPost = { id: generateId(posts), ...post };
+  let nextId = data.length > 0 ? Math.max(...data.map(post => post.id)) + 1 : 1
+  const newPost = { id: nextId++, ...post };
   posts.unshift(newPost);
   return newPost;
 }
